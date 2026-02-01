@@ -2,7 +2,7 @@ const fs = require('fs');
 
 console.log('Start reading...');
 
-const data = fs.readFileAsync('./data/diary.txt', 'utf8', (error, data) => {
+const data = fs.readFile('./data/diary.txt', 'utf8', (error, data) => {
     if (error) {
         console.error("Error reading file:", error.message);
     } else {
@@ -11,4 +11,4 @@ const data = fs.readFileAsync('./data/diary.txt', 'utf8', (error, data) => {
     }
 });
 
-console.log('This runs immediately - no blocking');Practice Reading File Synchronously In JavaScript
+console.log('This runs immediately - no blocking');
