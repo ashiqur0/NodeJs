@@ -12,24 +12,21 @@ console.log("Temporary file created.");
 
 try {
     fs.unlinkSync('./output/temp.txt');
-        console.log('file deleted successfully');
+    console.log('file deleted successfully');
 } catch (err) {
     console.error('Error deleting file: ', err.message);
 }
 
 // Delete file asynchronously
 fs.writeFile('./output/temp-async.txt', 'This is another temporary file.', (err) => {
-    if (err) {
-        console.error('Error creating file: ', err.message);
-        return;
-    }
-});
+    if (err) return console.error(err.message);
+    console.log('Asynchronous file created.');
 
-console.log('Asynchronous file created.');
-fs.unlink('./output/temp-async.txt', err => {
-    if (err) {
-        console.error('Error deleting file asynchronously: ', err.message);
-    }
+    fs.unlink('./output/temp-async.txt', err => {
+        if (err) {
+            console.error('Error: ', err.message);
+        } else {
+            console.log("temp2 deleted");
+        }
+    });
 });
-
-console.log("Asynchronous file deletion initiated.");
