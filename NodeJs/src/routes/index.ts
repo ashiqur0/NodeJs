@@ -65,3 +65,8 @@ addRoutes('DELETE', '/api/users/:id', async(req, res) => {
     writeUsers(users);
     sendJSON(res, 200, { success: true, message: `id ${id} user deleted` });
 });
+
+addRoutes('GET', '/api/users', (req, res) => {
+    const users = readUsers();
+    sendJSON(res, 200, { success: true, data: users });
+});
