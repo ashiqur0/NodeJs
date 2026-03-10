@@ -22,36 +22,6 @@ const server: Server = http.createServer(
                 path,
             }));
         }
-
-        // users route
-        // if (req.url == "/api/users" && req.method == 'POST') {
-            // const user = {
-            //     id: 9,
-            //     name: "Ashiqur Rahman",
-            // }
-            // res.writeHead(200, {"content-type": "application/json"});
-            // res.end(JSON.stringify(user));
-
-        //     let body = '';
-
-        //     // listen for data chunk
-        //     req.on('data', (chunk) => {
-        //         body += chunk.toString();
-        //     });
-
-        //     req.on('end', () => {
-        //         try {
-        //             const parseBody = JSON.parse(body);
-        //             console.log(parseBody);
-        //             console.log('catching current changes');
-        //             // res.end(body);
-        //             res.end(JSON.stringify(parseBody));
-        //         } catch (error: any) {
-        //             console.log(error?.message);
-        //         }
-        //     });
-
-        // }
     }
 );
 
