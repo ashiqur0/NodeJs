@@ -1,3 +1,4 @@
+import { readUsers, writeUsers } from "../helpers/fileDb";
 import parseBody from "../helpers/parseBody";
 import addRoutes from "../helpers/RouteHandler";
 import sendJSON from "../helpers/sendJSON";
@@ -18,5 +19,49 @@ addRoutes('GET', '/api', (req, res) => {
 
 addRoutes('POST', '/api/users', async (req, res) => {
     const body = await parseBody(req);
+
+    // user json read
+    const users = readUsers();
+    const newUser = {
+        ...body
+    }
+    users.push(newUser);
+    
+    writeUsers(users);
+
     sendJSON(res, 200, { success: true, data: body });
+});
+
+addRoutes('PUT', '/api/users/:id', async(req, res) => {
+    const { id } = (req as any).params;
+    const body = await parseBody(req);
+
+    const users = readUsers();
+    const index = users.findIndex((user: any) => user.id == id);
+    if (index === -1) {
+        sendJSON(res, 404, { success: false, message: "User not found" });
+        return;
+    }
+    
+    users[index] = {
+        ...users[index],
+        ...body
+    }
+
+    writeUsers(users);
+
+    sendJSON(res, 200, { success: true, message: `id ${id} user updated`, data: users[index]});
+});
+
+addRoutes('DELETE', '/api/users/:id', async(req, res) => {
+    const { id } = (req as any).params;
+    const users = readUsers();
+    const index = users.findIndex((user: any) => user.id == id);
+    if (index === -1) {
+        sendJSON(res, 404, { success: false, message: "User not found" });
+        return;
+    }
+    users.splice(index, 1);
+    writeUsers(users);
+    sendJSON(res, 200, { success: true, message: `id ${id} user deleted` });
 });
